@@ -1,6 +1,7 @@
 // src/services/book.service.ts
 import { books } from "../repositories/book.repository";
 import { Book } from "../models/book.model";
+import { isValidDiscountNumber } from "../utils/validator";
 
 export const getAllBooks = (): Book[] => {
   return books;
@@ -62,6 +63,8 @@ export const calculateDiscountedPriceByGenre = (
   genre: string,
   discount: number
 ) => {
+  const validDiscount = isValidDiscountNumber(discount) ? discount : 0;
+
   const genreBooks = books.filter(
     (book) => book.genre.toLowerCase() === genre.toLowerCase()
   );
@@ -72,11 +75,12 @@ export const calculateDiscountedPriceByGenre = (
     0
   );
 
-  const totalDiscountedPrice = totalOriginalPrice * ((100 - discount) / 100);
+  const totalDiscountedPrice =
+    totalOriginalPrice * ((100 - validDiscount) / 100);
 
   return {
     genre,
-    discount_percentage: discount,
-    total_discounted_price: parseFloat(totalDiscountedPrice.toFixed(2)), // Format to 2 decimal places & number
+    discount_percentage: validDiscount,
+    total_discounted_price: parseFloat(totalDiscountedPrice.toFixed(2)),
   };
 };

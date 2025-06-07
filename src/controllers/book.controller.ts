@@ -9,7 +9,18 @@ import {
 } from "../utils/validator";
 
 export const getAllBooks = (req: Request, res: Response) => {
-  const books = bookService.getAllBooks();
+  const { author, genre } = req.query;
+
+  if (genre && typeof genre === "string" && !isValidGenre(genre)) {
+    res.status(400).json({ message: "Invalid genre filter" });
+    return;
+  }
+  const filters = {
+    author: typeof author === "string" ? author : undefined,
+    genre: typeof genre === "string" ? genre : undefined,
+  };
+
+  const books = bookService.getAllBooks(filters);
   res.json(books);
 };
 

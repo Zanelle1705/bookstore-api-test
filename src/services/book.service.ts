@@ -3,8 +3,27 @@ import { books } from "../repositories/book.repository";
 import { Book } from "../models/book.model";
 import { isValidDiscountNumber } from "../utils/validator";
 
-export const getAllBooks = (): Book[] => {
-  return books;
+type BookFilters = {
+  author?: string;
+  genre?: string;
+};
+
+export const getAllBooks = (filters?: BookFilters): Book[] => {
+  if (!filters || Object.keys(filters).length === 0) {
+    return books;
+  }
+
+  return books.filter((book) => {
+    const matchesAuthor = filters.author
+      ? book.author.toLowerCase().includes(filters.author.toLowerCase())
+      : true;
+
+    const matchesGenre = filters.genre
+      ? book.genre.toLowerCase() === filters.genre.toLowerCase()
+      : true;
+
+    return matchesAuthor && matchesGenre;
+  });
 };
 
 export const getBookById = (id: number): Book | undefined => {

@@ -6,7 +6,7 @@ import { books } from "../repositories/book.repository";
 describe("calculateDiscountedPriceByGenre", () => {
   beforeEach(() => {
     // Reset the books array before each test
-    books.length = 0; // Clear the array
+    books.length = 0;
     books.push(
       {
         id: 1,

@@ -11,6 +11,7 @@ by genre.
 - [Features](#features)
 - [Getting Started](#getting-started)
 - [Predefined Genres](#predefined-genres)
+- [Mock Data](#mock-data)
 - [API Endpoints](#api-endpoints)
 - [Input Validation & Error Handling](#input-validation--error-handling)
 - [Testing](#testing)
@@ -54,7 +55,7 @@ npm start
 
 ---
 
-### Predefined Genres
+## Predefined Genres
 
 The API supports book genres from a predefined list to ensure consistency and valid data. The
 allowed genres are:
@@ -70,6 +71,40 @@ allowed genres are:
 
 When creating or updating books, the `genre` field must be one of the above values. Filters on
 the `/books` endpoint also support filtering by these genres.
+
+---
+
+## Mock Data
+
+The project uses the following in-memory dataset for demonstration purposes:
+
+```bash
+[
+  {
+    "id": 1,
+    "title": "To Kill a Mockingbird",
+    "author": "Harper Lee",
+    "genre": "Fiction",
+    "price": 50
+  },
+  {
+    "id": 2,
+    "title": "1984",
+    "author": "George Orwell",
+    "genre": "Fiction",
+    "price": 75
+  },
+  {
+    "id": 3,
+    "title": "The Wish",
+    "author": "Nicholas Sparks",
+    "genre": "Romance",
+    "price": 10
+  }
+]
+```
+
+---
 
 ## API Endpoints
 

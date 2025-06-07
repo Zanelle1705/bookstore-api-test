@@ -58,3 +58,7 @@ export const isValidBookPatch = (input: any): boolean => {
 
   return true;
 };
+
+export const isValidDiscountNumber = (discount: number): boolean => {
+  return !isNaN(discount) && discount >= 0 && discount <= 100;
+};

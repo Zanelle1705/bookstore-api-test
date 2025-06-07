@@ -1,7 +1,12 @@
 // src/controllers/book.controller.ts
 import { Request, Response, NextFunction } from "express";
 import * as bookService from "../services/book.service";
-import { isValidBookInput, isValidBookPatch } from "../utils/validator";
+import {
+  isValidBookInput,
+  isValidBookPatch,
+  isValidGenre,
+  isValidDiscountNumber,
+} from "../utils/validator";
 
 export const getAllBooks = (req: Request, res: Response) => {
   const books = bookService.getAllBooks();
@@ -15,7 +20,7 @@ export const getBookById = (
   next: NextFunction // Playing around, use to handle errors globally
 ) => {
   try {
-    const bookId = parseInt(req.params.id);
+    const bookId = parseInt(req.params.id, 10);
     const book = bookService.getBookById(bookId);
 
     if (!book) {
@@ -46,7 +51,7 @@ export const createBook = (req: Request, res: Response) => {
 };
 
 export const updateBook = (req: Request, res: Response) => {
-  const bookId = parseInt(req.params.id);
+  const bookId = parseInt(req.params.id, 10);
   const { title, author, genre, price } = req.body;
   if (!isValidBookInput(req.body)) {
     res.status(400).json({ message: "Invalid book data" });
@@ -67,7 +72,7 @@ export const updateBook = (req: Request, res: Response) => {
 
 export const patchBook = (req: Request, res: Response, next: NextFunction) => {
   try {
-    const bookId = parseInt(req.params.id);
+    const bookId = parseInt(req.params.id, 10);
     const updateFields = req.body;
 
     if (!isValidBookPatch(updateFields)) {
@@ -94,4 +99,27 @@ export const deleteBook = (req: Request, res: Response, next: NextFunction) => {
   } catch (err) {
     next(err); // Pass error to global error handler
   }
+};
+
+export const getDiscountedPriceByGenre = (req: Request, res: Response) => {
+  const { genre, discount } = req.query;
+
+  if (typeof genre !== "string" || !isValidGenre(genre)) {
+    res.status(400).json({ message: "Invalid genre" });
+    return;
+  }
+
+  const discountedNr = Number(discount);
+  if (!isValidDiscountNumber(discountedNr)) {
+    res
+      .status(400)
+      .json({ message: "Discount must be a number between 0 and 100" });
+    return;
+  }
+
+  const discountResult = bookService.calculateDiscountedPriceByGenre(
+    genre,
+    discountedNr
+  );
+  res.json(discountResult);
 };

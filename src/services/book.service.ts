@@ -57,3 +57,26 @@ export const deleteBook = (id: number): void => {
   // splice(startIndex, deleteCount)
   books.splice(bookIndex, 1);
 };
+
+export const calculateDiscountedPriceByGenre = (
+  genre: string,
+  discount: number
+) => {
+  const genreBooks = books.filter(
+    (book) => book.genre.toLowerCase() === genre.toLowerCase()
+  );
+
+  // Reduce - accumulate or reduce the array to a single value
+  const totalOriginalPrice = genreBooks.reduce(
+    (sum, book) => sum + book.price,
+    0
+  );
+
+  const totalDiscountedPrice = totalOriginalPrice * ((100 - discount) / 100);
+
+  return {
+    genre,
+    discount_percentage: discount,
+    total_discounted_price: parseFloat(totalDiscountedPrice.toFixed(2)), // Format to 2 decimal places & number
+  };
+};

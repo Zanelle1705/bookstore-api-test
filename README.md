@@ -214,6 +214,6 @@ books in the genre.
 
 ## Author
 
-Zanelle Botha
-Email: zanelle1705@gmail.com
+Zanelle Botha  
+Email: zanelle1705@gmail.com  
 GitHub: [Zanelle1705](https://github.com/Zanelle1705)

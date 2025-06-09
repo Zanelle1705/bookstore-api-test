@@ -47,7 +47,7 @@ export const updateBook = (
   // Find index of the book to update with the given id
   const bookIndex = books.findIndex((book) => book.id === id);
   if (bookIndex === -1) {
-    return undefined; // Book not found
+    return undefined;
   }
   const bookToUpdate = books[bookIndex];
   // Update the book properties

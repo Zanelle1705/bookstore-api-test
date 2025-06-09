@@ -1,4 +1,3 @@
-// Direct inetractions with the database or datasource for book-related operations
 // src/repositories/book.repository.ts
 import { Book } from "../models/book.model";
 

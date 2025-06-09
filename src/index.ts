@@ -2,7 +2,7 @@
 // Set up express server with TypeScript
 
 import express, { Request, Response, NextFunction } from "express";
-import bookRoutes from "./routes/book.routes"; // Assuming you have a book.routes.ts file
+import bookRoutes from "./routes/book.routes";
 
 const app = express();
 
@@ -15,7 +15,7 @@ app.get("/", (req, res) => {
 });
 
 // Mount routes
-app.use("/books", bookRoutes); // Use the book routes (Mount book API routes)
+app.use("/books", bookRoutes);
 
 // Error handling middleware (order matters, should be after all routes)
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {

@@ -40,7 +40,7 @@ export const getBookById = (
     }
     res.json(book);
   } catch (err) {
-    // Normally when using async/await, you would catch errors here
+    // Normally when using async/await, catch errors here
     // Pass error to global error handler
     next(err);
   }

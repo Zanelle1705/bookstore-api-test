@@ -1,5 +1,4 @@
 // src/models/book.model.ts
-// Typescript interface for a book model
 
 import { Genre } from "../constants/genres";
 
